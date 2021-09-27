@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "309815779212",
+    "project_id": "passworldess-sign-in",
+    "storage_bucket": "passworldess-sign-in.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309815779212:android:3100e8384b6acc326f80a9",
+        "android_client_info": {
+          "package_name": "com.example.passwordles_sign_in"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309815779212-m1jc106jak0jgfqja40tpt5imv8pqvea.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.passwordles_sign_in",
+            "certificate_hash": "510b92426c81ae318a584093d91943b59dfa6cf8"
+          }
+        },
+        {
+          "client_id": "309815779212-op8nf9fdfuipv6s8piktuqkldfr6vknq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0Uwekexxr1WrxaMvPeuOQLEQTwwA3OwM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309815779212-op8nf9fdfuipv6s8piktuqkldfr6vknq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
