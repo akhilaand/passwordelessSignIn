@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:passwordles_sign_in/common/colors.dart';
+import 'package:passwordles_sign_in/services/passwordless_login_services.dart';
 
 class LoginPage extends StatefulWidget {
    LoginPage({Key? key}) : super(key: key);
@@ -12,23 +13,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
 final TextEditingController _emailController=TextEditingController();
+PasswordlessLoginServices _passwordlessLoginServices=PasswordlessLoginServices();
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
 
-   Future signInWithEmailandLink(userEmail)async{
-     var _userEmail=userEmail;
-     return await _auth.sendSignInLinkToEmail(
-         email: _userEmail,
-         actionCodeSettings: ActionCodeSettings(
-           url: "https://pickwhatevernameyouwant.page.link/",
-           handleCodeInApp: true,
-           androidPackageName:"com.example.passwordles_sign_in",
-           androidMinimumVersion: "1",
-         )
-     ).then((value){
-       print("email sent");
-     });
-   }
+
 @override
   void initState() {
     // TODO: implement initState
@@ -44,11 +32,11 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
              final Uri? deepLink = dynamicLink?.link;
              if (deepLink != null) {
                print("------------------");
-              handleLink(deepLink,_emailController.text);
+              _passwordlessLoginServices.handleLink(deepLink,_emailController.text);
                FirebaseDynamicLinks.instance.onLink(
                    onSuccess: (PendingDynamicLinkData?dynamicLink) async {
                      final Uri? deepLink = dynamicLink!.link;
-                     handleLink(deepLink!,_emailController.text);
+                     _passwordlessLoginServices.handleLink(deepLink!,_emailController.text);
                    }, onError: (OnLinkErrorException e) async {
                  print('onLinkError');
                  print(e.message);
@@ -73,20 +61,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
      }
    }
 
-   void handleLink(Uri link,userEmail) async {
-     if (link != null) {
-       print(userEmail);
-       final UserCredential user = await FirebaseAuth.instance.signInWithEmailLink(
-         email:userEmail,
-         emailLink:link.toString(),
-       );
-       if (user != null) {
-         print(user.credential);
-       }
-     } else {
-       print("link is null");
-     }
-   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +90,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
               height: 15,
             ),
             MaterialButton(onPressed: (){
-              signInWithEmailandLink(_emailController.text);
+              _passwordlessLoginServices.signInWithEmailandLink(_emailController.text);
             },
               color: blue,
             child: const Text("Login"),
